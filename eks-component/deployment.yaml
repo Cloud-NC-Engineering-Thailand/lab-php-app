@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-app
+spec:
+  replicas: 3 # Adjust as needed
+  selector:
+    matchLabels:
+      app: php-app
+  template:
+    metadata:
+      labels:
+        app: php-app
+    spec:
+      containers:
+      - name: php-app
+        image: your-ecr-repo/php-app:latest # Update with your Docker image
+        ports:
+        - containerPort: 80
