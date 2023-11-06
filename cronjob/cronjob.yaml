@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: health-check-cronjob
+spec:
+  schedule: "*/30 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: health-check-container
+            image: your-ecr-repo/health-check-image:latest # Replace with your health check image
+            command:
+            - /bin/sh
+            - -c
+            - >-
+              # Add your health check command here
+              # Example: curl --fail http://your-app-service:80/health-check || exit 1
+          restartPolicy: Never
