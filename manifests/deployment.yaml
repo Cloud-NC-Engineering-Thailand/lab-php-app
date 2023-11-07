@@ -1,19 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php-app
+  name: demo-php
 spec:
   replicas: 3 # Adjust as needed
   selector:
     matchLabels:
-      app: php-app
+      app: demo-php
   template:
     metadata:
       labels:
-        app: php-app
+        app: demo-php
     spec:
       containers:
-      - name: php-app
-        image: your-ecr-repo/php-app:latest # Update with your Docker image
+      - name: demo-php
+        image: dmakeroam/demo-php:1.0.0 # Update with your Docker image
         ports:
         - containerPort: 80
+        resources: {}

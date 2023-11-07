@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-php-ingress
+  annotations:
+  # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:xxxxx:certificate/xxxxxxx
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
+  # alb.ingress.kubernetes.io/wafv2-acl-arn: arn:aws:wafv2:us-west-2:xxxxx:regional/webacl/xxxxxxx/3ab78708-85b0-49d3-b4e1-7a9615a6613b
+    alb.ingress.kubernetes.io/subnets: "subnet-12345678, subnet-87654321"
+    alb.ingress.kubernetes.io/security-groups: "sg-90123456"
+    alb.ingress.kubernetes.io/target-type: "instance"
+spec:
+  ingressClassName: alb
+  rules:
+  - host: your.domain.com # Replace with your domain
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: demo-php
+            port:
+              number: 80

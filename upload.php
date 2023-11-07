@@ -1,13 +1,13 @@
 <?php
-require 'aws/aws-autoloader.php'; // Include the AWS SDK for PHP
+require __DIR__ .  '/vendor/autoload.php';// Include the AWS SDK for PHP
 
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
 
-$bucketName = 'your-bucket-name';
-$awsAccessKeyId = 'your-access-key';
-$awsSecretAccessKey = 'your-secret-key';
-$awsRegion = 'your-region';
+$bucketName = 'php-s3-demo';
+$awsAccessKeyId = '';
+$awsSecretAccessKey = '';
+$awsRegion = 'ap-southeast-1';
 
 if (isset($_FILES['file'])) {
     $file = $_FILES['file'];
@@ -25,14 +25,13 @@ if (isset($_FILES['file'])) {
     ]);
 
     // Specify the S3 object key and upload the file
-    $objectKey = 'uploads/' . $fileName;
+    $objectKey = 'images/' . $fileName;
 
     try {
         $result = $s3->putObject([
             'Bucket' => $bucketName,
             'Key' => $objectKey,
-            'Body' => fopen($tmpName, 'rb'),
-            'ACL' => 'public-read',
+            'Body' => fopen($tmpName, 'rb')
         ]);
 
         echo "File uploaded successfully. You can access it at: " . $result['ObjectURL'];
